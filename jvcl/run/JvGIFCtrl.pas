@@ -205,6 +205,7 @@ destructor TJvGIFAnimator.Destroy;
 begin
   FTimer.OnTimer := nil; // terminate timer thread
   FTimer.Enabled := False;
+  FreeAndNil(FTimer); // Note: not really required (VCL does it for us), but cleaner
   Destroying; // ??? ahuser: this is the job of TComponent.Destroy, why is it called here?
   FOnStart := nil;
   FOnStop := nil;
@@ -214,7 +215,6 @@ begin
   FCache.Free;
   FImage.OnChange := nil;
   FImage.Free;
-  FreeAndNil(FTimer); // Note: not really required (VCL does it for us), but cleaner
   inherited Destroy;
 end;
 
